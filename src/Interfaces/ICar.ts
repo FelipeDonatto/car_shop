@@ -8,4 +8,3 @@ export default interface ICar {
   doorsQty: number;
   seatsQty: number;
 }
-// test
