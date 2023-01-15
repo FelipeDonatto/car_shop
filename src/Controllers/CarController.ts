@@ -16,7 +16,7 @@ class CarController {
   }
 
   public async create() {
-    const payment: ICar = {
+    const carSpecs: ICar = {
       color: this.req.body.color,
       buyValue: this.req.body.buyValue,
       doorsQty: this.req.body.doorsQty,
@@ -27,10 +27,35 @@ class CarController {
     };
 
     try {
-      const newCar = await this.service.addCar(payment);
+      const newCar = await this.service.addCar(carSpecs);
       return this.res.status(201).json(newCar);
     } catch (error) {
       this.next(error);
+    }
+  }
+
+  public async find() {
+    try {
+      const cars = await this.service.getCars();
+      return this.res.status(200).json(cars);
+    } catch (e) {
+      this.next(e);
+    }
+  }
+
+  public async findById() {
+    const { id } = this.req.params;
+    if (id.length !== 24) {
+      return this.res.status(422).json({ message: 'Invalid mongo id' });
+    }
+    try {
+      const car = await this.service.getCarById(id) as ICar | null;
+      if (car === null) {
+        return this.res.status(404).json({ message: 'Car not found' });
+      }
+      return this.res.status(200).json(car);
+    } catch (e) {
+      this.next(e);
     }
   }
 }

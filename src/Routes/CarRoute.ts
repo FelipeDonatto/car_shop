@@ -5,5 +5,9 @@ const carRoute = Router();
 
 carRoute.post('/', (req, res, next) =>
   new CarController(req, res, next).create());
+carRoute.get('/', (req, res, next) =>
+  new CarController(req, res, next).find());
+carRoute.get('/:id', (req, res, next) =>
+  new CarController(req, res, next).findById());
 
 export default carRoute;

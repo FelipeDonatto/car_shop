@@ -29,15 +29,17 @@ class CarModel {
     return this.model.create({ ...Car });
   }
 
-  //   public async update(id: string, obj: Partial<ICar>): Promise<ICar | null> {
-  //     if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
-
-  //     return this.model.findByIdAndUpdate(
-  //       { _id: id },
-  //       { ...obj } as UpdateQuery<ICar>,
-  //       { new: true },
-  //     );
-  //   }
+  public async findAll(): Promise<ICar[]> {
+    return this.model.find();
+  }
+  public async findById(id: string): Promise<ICar | null> {
+    try {
+      const query = await this.model.findById(id);
+      return query;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 export default CarModel;

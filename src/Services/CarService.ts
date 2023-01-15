@@ -20,10 +20,28 @@ class CarService {
     return null;
   }
 
+  private listCars(car: ICar): Car { return new Car(car); }
+
   public async addCar(car: ICar) {
     const model = new CarModel();
     const carSpecs = await model.create(car);
     return this.createCar(carSpecs);
+  }
+
+  public async getCars() {
+    const model = new CarModel();
+    const cars = await model.findAll();
+    const carArr = cars.map((c) => this.listCars(c));
+    return carArr;
+  }
+  public async getCarById(id: string) {
+    const model = new CarModel();
+    const car = await model.findById(id);
+    if (car !== null) {
+      const carById = this.listCars(car);
+      return carById;
+    }
+    return car;
   }
 }
 
