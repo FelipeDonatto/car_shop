@@ -20,7 +20,9 @@ class CarService {
     return null;
   }
 
-  private listCars(car: ICar): Car { return new Car(car); }
+  private listCars(car: ICar): Car {
+    return new Car(car);
+  }
 
   public async addCar(car: ICar) {
     const model = new CarModel();
@@ -42,6 +44,14 @@ class CarService {
       return carById;
     }
     return car;
+  }
+  public async update(id: string, body: ICar) {
+    const model = new CarModel();
+    const updated = await model.findOneAndUpdate(id, body);
+    if (updated !== null) {
+      const filtered = this.listCars(updated);
+      return filtered;
+    }
   }
 }
 

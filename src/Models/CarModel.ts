@@ -40,6 +40,10 @@ class CarModel {
       return null;
     }
   }
+  public async findOneAndUpdate(id: string, body: ICar) {
+    const findOne = await this.model.findOneAndUpdate({ _id: id }, body, { new: true });
+    return findOne;
+  }
 }
 
 export default CarModel;
