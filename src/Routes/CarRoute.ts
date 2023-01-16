@@ -11,8 +11,8 @@ carRoute.get('/', (req, res, next) =>
 carRoute.get('/:id', (req, res, next) =>
   new CarController(req, res, next).findById());
 carRoute.put('/:id', checkId, async (req, res, next) => {
-  const sla = await new CarController(req, res, next).updateOne();
-  return sla;
+  const controller = await new CarController(req, res, next).updateOne();
+  return controller;
 });
 
 export default carRoute;

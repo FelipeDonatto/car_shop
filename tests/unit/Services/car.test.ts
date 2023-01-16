@@ -40,4 +40,21 @@ describe('testa se a rota car', function () {
     expect(allCars).to.be.deep.equal(getAllReturn);
     expect(carById).to.be.deep.equal(getByIdReturn);
   });
+  it('consegue dar update no carro', async function () {
+    const service = new CarService();
+
+    const updated = {
+      id: '63c5afbe654887ce5a946fee',
+      model: 'Marea',
+      year: 1992,
+      color: 'Red',
+      status: true,
+      buyValue: 12,
+      doorsQty: 2,
+      seatsQty: 5,
+    };
+    sinon.stub(Model, 'findOneAndUpdate').resolves(updated);
+    const allCars = await service.update('63c5afbe654887ce5a946fee', updated);
+    expect(allCars).to.be.deep.equal(updated);
+  });
 });
