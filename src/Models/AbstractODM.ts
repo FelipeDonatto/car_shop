@@ -1,4 +1,4 @@
-import { Model, models, Schema, model, isValidObjectId, UpdateQuery } from 'mongoose';
+import { Model, models, Schema, model } from 'mongoose';
 
 export default abstract class AbstractODM<T> {
   protected model: Model<T>;
